@@ -8,6 +8,13 @@ VueJS component for resizing, dragging and rotating html elements using css tran
 
 ![VueJS free transform tool](https://raw.githubusercontent.com/skmail/vue-free-transform/master/image.png)
 
+
+## Installation
+`yarn install vue-free-transform` or `npm install vue-free-transform --save`
+
+ 
+ 
+## Usage
 ```vue
 <FreeTransform 
     :x="0"
@@ -28,21 +35,91 @@ VueJS component for resizing, dragging and rotating html elements using css tran
 </FreeTransform>
 ```
 
-## Project setup
-`yarn install vue-free-transform` or `npm install vue-free-transform --save`
+## css
+
+```css
+
+    .tr-transform__content{
+        user-select: none;
+    }
+    .tr-transform__rotator {
+        top: -45px;
+        left: calc(50% - 7px);
+    }
+
+    .tr-transform__rotator,
+    .tr-transform__scale-point {
+        background: #fff;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: absolute;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+
+    .tr-transform__rotator:hover,
+    .tr-transform__scale-point:hover {
+        background: #F1F5F8;
+    }
+
+    .tr-transform__rotator:active,
+    .tr-transform__scale-point:active {
+        background: #DAE1E7;
+    }
+
+    .tr-transform__scale-point {
+
+    }
+
+    .tr-transform__scale-point--tl {
+        top: -7px;
+        left: -7px;
+    }
+
+    .tr-transform__scale-point--ml {
+        top: calc(50% - 7px);
+        left: -7px;
+    }
+
+    .tr-transform__scale-point--tr {
+        left: calc(100% - 7px);
+        top: -7px;
+    }
+
+    .tr-transform__scale-point--tm {
+        left: calc(50% - 7px);
+        top: -7px;
+    }
+
+    .tr-transform__scale-point--mr {
+        left: calc(100% - 7px);
+        top: calc(50% - 7px);
+    }
+
+    .tr-transform__scale-point--bl {
+        left: -7px;
+        top: calc(100% - 7px);
+    }
+
+    .tr-transform__scale-point--bm {
+        left: calc(50% - 7px);
+        top: calc(100% - 7px);
+    }
+
+    .tr-transform__scale-point--br {
+        left: calc(100% - 7px);
+        top: calc(100% - 7px);
+    }
+```
 
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Keyboard shortcuts
+`shift` for aspect ratio resizing
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+`alt` for scaling from center
 
-### Lints and fixes files
-```
-yarn run lint
-```
+`shift` + `alt` scaling from center based on aspect ratio
+
+`shift` while rotation will snap rotation using 15 degrees
