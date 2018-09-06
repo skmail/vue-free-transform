@@ -15,10 +15,11 @@
                             :angle="element.angle"
                             :offset-x="offsetX"
                             :offset-y="offsetY"
+                            :disable-scale="element.disableScale === true"
                             @update="update(element.id,$event)"
                     >
                         <div class="element"
-                             :style="{width: `${element.width}px`,height: `${element.height}px`,background: element.background}">
+                             :style="getElementStyles(element)">
                             {{element.text}}
                         </div>
 
@@ -49,8 +50,10 @@
             width: 100,
             height: 100,
             angle: 0,
-            background: "linear-gradient(135deg, #0FF0B3 0%,#036ED9 100%)",
             classPrefix: "tr",
+            styles:{
+              background: "linear-gradient(135deg, #0FF0B3 0%,#036ED9 100%)",
+            }
           },
           {
             id: "el-2",
@@ -61,11 +64,11 @@
             width: 100,
             height: 100,
             angle: 0,
-            background: "linear-gradient(135deg, #fad961 0%,#f76b1c 100%)",
             classPrefix: "tr2",
             text: "Scale Enabled",
             styles: {
-              padding: 5,
+              padding: `5px`,
+              background: "linear-gradient(135deg, #fad961 0%,#f76b1c 100%)",
             },
           },
           {
@@ -77,13 +80,13 @@
             width: 100,
             height: 100,
             angle: 0,
-            background: "linear-gradient(135deg, #fad961 0%,#f76b1c 100%)",
             classPrefix: "tr2",
             text: "Scale Disabled",
             styles: {
               padding: 5,
               width: "100%",
-              height: "100%"
+              height: "100%",
+              background: "linear-gradient(135deg, #fad961 0%,#f76b1c 100%)",
             },
             disableScale: true
           },
@@ -96,17 +99,19 @@
             width: 100,
             height: 100,
             angle: 45,
-            background: "linear-gradient(135deg, #b1ea4d 0%,#459522 100%)",
             classPrefix: "tr3",
+            styles:{
+              background: "linear-gradient(135deg, #b1ea4d 0%,#459522 100%)",
+            }
           }
         ],
         offsetX: 0,
         offsetY: 0
       }
     },
-    mounted(){
-        this.offsetX = this.$refs.workspace.offsetLeft
-        this.offsetY = this.$refs.workspace.offsetTop
+    mounted() {
+      this.offsetX = this.$refs.workspace.offsetLeft
+      this.offsetY = this.$refs.workspace.offsetTop
     },
     methods: {
       update(id, payload) {
@@ -119,6 +124,14 @@
           }
           return item
         })
+      },
+      getElementStyles(element) {
+        const styles = element.styles ? element.styles : {}
+        return {
+          width: `${element.width}px`,
+          height: `${element.height}px`,
+          ...styles
+        }
       }
     }
   }
@@ -148,9 +161,10 @@
         box-sizing: border-box;
     }
 
-    .tr-transform__content{
+    .tr-transform__content {
         user-select: none;
     }
+
     .tr-transform__rotator {
         top: -45px;
         left: calc(50% - 7px);

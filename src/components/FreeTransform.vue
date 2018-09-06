@@ -88,8 +88,8 @@
         return {
           element:{
             ...element,
-            width:element.width?`${element.width}`:null,
-            height:element.height?`${element.height}`:null,
+            width:element.width?`${element.width}px`:null,
+            height:element.height?`${element.height}px`:null,
           },
           controls:{
             ...controls,
