@@ -1,7 +1,13 @@
 {
   "name": "vue-free-transform",
+  "description": "A free transform tool",
+  "author": "Solaiman Kmail <psokmail@gmail.com> (https://github.com/skmail)",
   "version": "1.0.5",
   "main": "./dist/FreeTransform.common.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skmail/vue-free-transform"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "test": "vue-cli-service test",
