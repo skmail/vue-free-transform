@@ -1,6 +1,6 @@
 {
   "name": "vue-free-transform",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/FreeTransform.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
