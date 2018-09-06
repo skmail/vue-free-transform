@@ -15,7 +15,13 @@ VueJS component for resizing, dragging and rotating html elements using css tran
  
  
 ## Usage
+
+```js
+import FreeTransform from 'vue-free-transform'
+```
+
 ```vue
+  
 <FreeTransform 
     :x="0"
     :y="0"
