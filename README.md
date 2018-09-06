@@ -12,6 +12,8 @@ VueJS component for resizing, dragging and rotating html elements using css tran
 ## Installation
 `yarn install vue-free-transform` or `npm install vue-free-transform --save`
 
+## Demo
+https://codesandbox.io/s/1jl7z9p3q
  
  
 ## Usage
