@@ -2923,6 +2923,12 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+free-transform@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/free-transform/-/free-transform-0.1.1.tgz#340ab25f719d941ccaf5ac189dbb5624fd912c11"
+  dependencies:
+    transformation-matrix "^1.14.0"
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
@@ -6175,6 +6181,10 @@ tough-cookie@>=2.3.3, tough-cookie@~2.4.3:
   dependencies:
     psl "^1.1.24"
     punycode "^1.4.1"
+
+transformation-matrix@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/transformation-matrix/-/transformation-matrix-1.14.0.tgz#a683c9507d5c26f9f474d4302e6e5bb948e59fc0"
 
 trim-right@^1.0.1:
   version "1.0.1"

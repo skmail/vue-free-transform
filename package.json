@@ -2,12 +2,16 @@
   "name": "vue-free-transform",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/FreeTransform.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "test": "vue-cli-service test",
     "build": "vue-cli-service build",
+    "build:lib": "vue-cli-service build --target lib --name FreeTransform ./src/components/FreeTransform.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "free-transform": "^0.1.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {
@@ -39,5 +43,12 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
+  ],
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
   ]
 }
