@@ -1,9 +1,9 @@
 <template>
-    <div :class="`${classPrefix}-transform`" @mousedown="handleTranslation">
+    <div :class="`${classPrefix}-transform`" @dblclick="selected=!selected" @mousedown="handleTranslation">
         <div :class="`${classPrefix}-transform__content`" :style="style.element">
             <slot></slot>
         </div>
-        <div :class="`${classPrefix}-transform__controls`" :style="style.controls">
+        <div v-if="selected" :class="`${classPrefix}-transform__controls`" :style="style.controls">
             <div :class="`${classPrefix}-transform__rotator`" @mousedown="handleRotation"></div>
             <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tl`]" @mousedown="handleScale('tl',$event)"></div>
             <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--ml`]" @mousedown="handleScale('ml',$event)"></div>
@@ -22,6 +22,11 @@
 
   export default {
     name: 'Transform',
+    data () {
+      return {
+        selected: false
+      }
+    },
     props: {
       classPrefix: {
         type: String,
@@ -125,21 +130,21 @@
 
         this.onDrag(drag);
       },
-
       handleTranslation(event) {
         event.stopPropagation();
-
-        const drag = translate({
-          x: this.x,
-          y: this.y,
-          startX: event.pageX,
-          startY: event.pageY
-        }, (payload) => {
+        if(this.selected) {
+          const drag = translate({
+            x: this.x,
+            y: this.y,
+            startX: event.pageX,
+            startY: event.pageY
+          }, (payload) => {
           this.$emit("update",payload)
         });
 
         this.onDrag(drag);
-      },
+      }
+        },
 
       handleRotation(event) {
         event.stopPropagation();
