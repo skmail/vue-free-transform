@@ -42,11 +42,35 @@ import FreeTransform from 'vue-free-transform'
 
 </FreeTransform>
 ```
+## Optional Attributes
+
+`selected`
+`selectOn`
+`styles`
+
+| Attribute        | Description  |
+| ------------- |:-------------:|
+| styles      | additional styles for parent wrapper usefull for z-index|
+| selected      | hide the controls when values is false    |
+| selectOn |  trigger selection on `mousedown`, `click` or `dblclick` |
+
+
+
+## Events
+`onSelect`
+`dblclick`
+`click`
+`mousedown`
 
 ## css
 
 ```css
-
+    
+    .tr-transform--active{
+        position: absolute;
+        z-index: 5;
+    }
+    
     .tr-transform__content{
         user-select: none;
     }
