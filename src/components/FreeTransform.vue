@@ -1,24 +1,38 @@
 <template>
-    <div :class="`${classPrefix}-transform`" @mousedown="handleTranslation">
-        <div :class="`${classPrefix}-transform__content`" :style="style.element">
+    <div :class="{[`${classPrefix}-transform`]: true, [`${classPrefix}-transform--active`]:selected}"
+         :style="styles"
+         @click="click"
+         @dblclick="dblClick"
+         @mousedown="mousedown">
+        <div :class="`${classPrefix}-transform__content`" :style="computedStyles.element">
             <slot></slot>
         </div>
-        <div :class="`${classPrefix}-transform__controls`" :style="style.controls">
+        <div v-if="selected"
+             :class="`${classPrefix}-transform__controls`"
+             :style="computedStyles.controls">
             <div :class="`${classPrefix}-transform__rotator`" @mousedown="handleRotation"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tl`]" @mousedown="handleScale('tl',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--ml`]" @mousedown="handleScale('ml',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tr`]" @mousedown="handleScale('tr',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tm`]" @mousedown="handleScale('tm',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--bl`]" @mousedown="handleScale('bl',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--bm`]" @mousedown="handleScale('bm',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--br`]" @mousedown="handleScale('br',$event)"></div>
-            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--mr`]" @mousedown="handleScale('mr',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tl`]"
+                 @mousedown="handleScale('tl',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--ml`]"
+                 @mousedown="handleScale('ml',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tr`]"
+                 @mousedown="handleScale('tr',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--tm`]"
+                 @mousedown="handleScale('tm',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--bl`]"
+                 @mousedown="handleScale('bl',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--bm`]"
+                 @mousedown="handleScale('bm',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--br`]"
+                 @mousedown="handleScale('br',$event)"></div>
+            <div :class="[`${classPrefix}-transform__scale-point ${classPrefix}-transform__scale-point--mr`]"
+                 @mousedown="handleScale('mr',$event)"></div>
         </div>
     </div>
 </template>
 
 <script>
-  import {styler,scale,translate,rotate} from 'free-transform'
+  import {styler, scale, translate, rotate} from 'free-transform'
 
   export default {
     name: 'Transform',
@@ -71,9 +85,23 @@
         type: Number,
         required: true
       },
+      selected: {
+        type: Boolean,
+        default: true
+      },
+      styles: {
+        type: Object,
+        default: () => ({})
+      },
+      selectOn: {
+        validator: function (value) {
+          return ['dblclick', 'mousedown', 'click'].indexOf(value) !== -1
+        },
+        default: 'mousedown'
+      }
     },
     computed: {
-      style() {
+      computedStyles() {
         const {element, controls} = styler({
           x: this.x,
           y: this.y,
@@ -86,20 +114,20 @@
         });
 
         return {
-          element:{
+          element: {
             ...element,
-            width:element.width?`${element.width}px`:null,
-            height:element.height?`${element.height}px`:null,
+            width: element.width ? `${element.width}px` : null,
+            height: element.height ? `${element.height}px` : null,
           },
-          controls:{
+          controls: {
             ...controls,
-            width:`${controls.width}px`,
-            height:`${controls.height}px`
+            width: `${controls.width}px`,
+            height: `${controls.height}px`
           }
         }
       }
     },
-    methods:{
+    methods: {
 
       handleScale(scaleType, event) {
 
@@ -120,22 +148,20 @@
           scaleFromCenter: event.altKey,
           aspectRatio: event.shiftKey,
         }, (payload) => {
-          this.$emit("update",payload)
+          this.$emit("update", payload)
         });
 
         this.onDrag(drag);
       },
-
       handleTranslation(event) {
         event.stopPropagation();
-
         const drag = translate({
           x: this.x,
           y: this.y,
           startX: event.pageX,
           startY: event.pageY
         }, (payload) => {
-          this.$emit("update",payload)
+          this.$emit("update", payload)
         });
 
         this.onDrag(drag);
@@ -157,13 +183,13 @@
           offsetX: this.offsetX,
           offsetY: this.offsetY
         }, (payload) => {
-          this.$emit("update",payload)
+          this.$emit("update", payload)
         });
 
         this.onDrag(drag)
       },
 
-      onDrag(drag){
+      onDrag(drag) {
         const up = () => {
           document.removeEventListener('mousemove', drag);
           document.removeEventListener('mouseup', up);
@@ -171,7 +197,30 @@
 
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', up);
+      },
+
+      mousedown(event){
+        this.$emit("mousedown", event);
+        if(this.selectOn === 'mousedown' || this.selected === true){
+          this.$emit('onSelect')
+          this.handleTranslation(event)
+        }
+      },
+
+      click(event) {
+        this.$emit('click', event)
+        if(this.selectOn === 'click'){
+          this.$emit('onSelect')
+        }
+      },
+
+      dblClick(event) {
+        this.$emit('dblclick', event)
+        if(this.selectOn === 'dblclick'){
+          this.$emit('onSelect')
+        }
       }
+
     },
   }
 </script>
