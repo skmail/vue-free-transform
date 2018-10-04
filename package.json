@@ -2,7 +2,7 @@
   "name": "vue-free-transform",
   "description": "A free transform tool",
   "author": "Solaiman Kmail <psokmail@gmail.com> (https://github.com/skmail)",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "./dist/FreeTransform.common.js",
   "repository": {
     "type": "git",
