@@ -98,7 +98,15 @@
           return ['dblclick', 'mousedown', 'click'].indexOf(value) !== -1
         },
         default: 'mousedown'
-      }
+      },
+      aspectRatio: {
+        type: Boolean,
+        default: true
+      },
+      scaleFromCenter: {
+        type: Boolean,
+        default: true
+      },
     },
     computed: {
       computedStyles() {
@@ -145,8 +153,10 @@
           height: this.height,
           angle: this.angle,
           scaleLimit: this.scaleLimit,
-          scaleFromCenter: event.altKey,
-          aspectRatio: event.shiftKey,
+          scaleFromCenter: this.scaleFromCenter && event.altKey,
+          enableScaleFromCenter: this.scaleFromCenter,
+          aspectRatio: this.aspectRatio && event.shiftKey,
+          enableAspectRatio: this.aspectRatio
         }, (payload) => {
           this.$emit("update", payload)
         });
@@ -199,9 +209,9 @@
         document.addEventListener('mouseup', up);
       },
 
-      mousedown(event){
+      mousedown(event) {
         this.$emit("mousedown", event);
-        if(this.selectOn === 'mousedown' || this.selected === true){
+        if (this.selectOn === 'mousedown' || this.selected === true) {
           this.$emit('onSelect')
           this.handleTranslation(event)
         }
@@ -209,14 +219,14 @@
 
       click(event) {
         this.$emit('click', event)
-        if(this.selectOn === 'click'){
+        if (this.selectOn === 'click') {
           this.$emit('onSelect')
         }
       },
 
       dblClick(event) {
         this.$emit('dblclick', event)
-        if(this.selectOn === 'dblclick'){
+        if (this.selectOn === 'dblclick') {
           this.$emit('onSelect')
         }
       }

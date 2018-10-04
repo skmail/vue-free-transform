@@ -53,7 +53,9 @@ import FreeTransform from 'vue-free-transform'
 | styles      | additional styles for parent wrapper usefull for z-index|
 | selected      | hide the controls when values is false    |
 | selectOn |  trigger selection on `mousedown`, `click` or `dblclick` |
-
+| aspect-ratio | enable aspect ratio resizing default (true)|
+| scale-from-center | enable scale from center resizing default (true)|
+                           
 
 
 ## Events

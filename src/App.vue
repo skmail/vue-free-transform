@@ -21,6 +21,8 @@
                             @onSelect="setSelected(element.id)"
                             @update="update(element.id,$event)"
                             :styles="{zIndex:element.id === selectedElement?2:1}"
+                            :aspect-ratio="false"
+                            :scale-from-center="false"
                     >
                         <div class="element"
                              :style="getElementStyles(element)">
